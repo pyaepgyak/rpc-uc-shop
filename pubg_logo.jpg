@@ -2,24 +2,22 @@ from zipfile import ZipFile
 from pathlib import Path
 from shutil import copyfile
 
-# Define file paths
+# Define the paths
 html_file = Path("/mnt/data/index.html")
-image1 = Path("/mnt/data/pubg_logo.jpg")
-image2 = Path("/mnt/data/pubg.jpg")
-zip_path = Path("/mnt/data/rpc_uc_shop_final.zip")
+image1 = Path("/mnt/data/pubg.jpg")
+image2 = Path("/mnt/data/pubg_logo.jpg")
+zip_path = Path("/mnt/data/rpc_uc_shop_final_with_images.zip")
 
-# Prepare image paths in the zip
-img1_copy = html_file.parent / "pubg_logo.jpg"
-img2_copy = html_file.parent / "pubg.jpg"
-
-# Copy image files to match the HTML file
+# Copy the images to match expected names in the HTML
+img1_copy = html_file.parent / "pubg.jpg"
+img2_copy = html_file.parent / "pubg_logo.jpg"
 copyfile(image1, img1_copy)
 copyfile(image2, img2_copy)
 
 # Create a zip file containing the HTML and image files
 with ZipFile(zip_path, 'w') as zipf:
     zipf.write(html_file, arcname="index.html")
-    zipf.write(img1_copy, arcname="pubg_logo.jpg")
-    zipf.write(img2_copy, arcname="pubg.jpg")
+    zipf.write(img1_copy, arcname="pubg.jpg")
+    zipf.write(img2_copy, arcname="pubg_logo.jpg")
 
 zip_path.name
