@@ -1,102 +1,23 @@
+from zipfile import ZipFile
+from pathlib import Path
+from shutil import copyfile
 
-# Create the HTML content with correct image embedding (using relative paths)
-html_content = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>RPC-UC SHOP</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
-        }
-        header {
-            background-color: #1f1f1f;
-            padding: 10px;
-            text-align: center;
-        }
-        header img {
-            height: 50px;
-        }
-        header h1 {
-            margin: 10px 0 0;
-            font-size: 24px;
-        }
-        .container {
-            display: flex;
-            padding: 20px;
-        }
-        .sidebar {
-            flex: 1;
-            padding: 20px;
-            background-color: #1f1f1f;
-            margin-right: 20px;
-            border-radius: 10px;
-        }
-        .content {
-            flex: 3;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-        }
-        .item {
-            background-color: #2a2a2a;
-            padding: 15px;
-            text-align: center;
-            border-radius: 10px;
-        }
-        .item img {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 10px;
-        }
-        a {
-            color: #4da6ff;
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <img src="pubglogo.png" alt="PUBG Logo">
-        <h1>RPC-UC SHOP</h1>
-    </header>
-    <div class="container">
-        <div class="sidebar">
-            <h2>ဆက်သွယ်ရန်</h2>
-            <p>Telegram: <a href="https://t.me/classic_owner_23" target="_blank">@classic_owner_23</a></p>
-        </div>
-        <div class="content">
-            <div class="item">
-                <img src="uc.png" alt="325 UC">
-                <p>325 UC - 19,000Ks</p>
-            </div>
-            <div class="item">
-                <img src="uc.png" alt="660 UC">
-                <p>660 UC - 37,500Ks</p>
-            </div>
-            <div class="item">
-                <img src="uc.png" alt="1800 UC">
-                <p>1800 UC - 93,500Ks</p>
-            </div>
-            <div class="item">
-                <img src="uc.png" alt="3850 UC">
-                <p>3850 UC - 182,000Ks</p>
-            </div>
-            <div class="item">
-                <img src="uc.png" alt="8100 UC">
-                <p>8100 UC - 355,000Ks</p>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-"""
+# Define the paths
+html_file = Path("/mnt/data/index.html")
+image1 = Path("/mnt/data/76d6d34494d08d0b34670c8798fb4fdd.jpg")
+image2 = Path("/mnt/data/5060874429f424d0a89c5ccd2b116abf.jpg")
+zip_path = Path("/mnt/data/rpc_uc_shop_site.zip")
 
-# Save the HTML file
-file_path = Path("/mnt/data/index.html")
-file_path.write_text(html_content, encoding='utf-8')
-file_path.name
+# Copy the images to match expected names in the HTML
+img1_copy = html_file.parent / "uc_image.jpg"
+img2_copy = html_file.parent / "pubg_logo.jpg"
+copyfile(image1, img1_copy)
+copyfile(image2, img2_copy)
+
+# Create a zip file containing the HTML and image files
+with ZipFile(zip_path, 'w') as zipf:
+    zipf.write(html_file, arcname="index.html")
+    zipf.write(img1_copy, arcname="uc_image.jpg")
+    zipf.write(img2_copy, arcname="pubg_logo.jpg")
+
+zip_path.name
