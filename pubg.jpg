@@ -1,23 +1,69 @@
-from zipfile import ZipFile
-from pathlib import Path
-from shutil import copyfile
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RPC-UC SHOP</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      text-align: center;
+    }
+    .card {
+      display: inline-block;
+      width: 180px;
+      padding: 10px;
+      margin: 10px;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      border-radius: 10px;
+    }
+    img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    h1 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
 
-# Define the paths
-html_file = Path("/mnt/data/index.html")
-image1 = Path("/mnt/data/pubg.jpg")
-image2 = Path("/mnt/data/pubg_logo.jpg")
-zip_path = Path("/mnt/data/rpc_uc_shop_final_with_images.zip")
+  <!-- ✅ Logo -->
+  <img src="pubg_logo.jpg" alt="PUBG Logo" width="150">
 
-# Copy the images to match expected names in the HTML
-img1_copy = html_file.parent / "pubg.jpg"
-img2_copy = html_file.parent / "pubg_logo.jpg"
-copyfile(image1, img1_copy)
-copyfile(image2, img2_copy)
+  <h1>RPC-UC SHOP</h1>
+  <p>ဆက်သွယ်ရန်: Telegram - <a href="https://t.me/classic_owner_23">@classic_owner_23</a></p>
 
-# Create a zip file containing the HTML and image files
-with ZipFile(zip_path, 'w') as zipf:
-    zipf.write(html_file, arcname="index.html")
-    zipf.write(img1_copy, arcname="pubg.jpg")
-    zipf.write(img2_copy, arcname="pubg_logo.jpg")
+  <!-- ✅ UC Cards -->
+  <div class="card">
+    <img src="pubg.jpg" alt="325 UC">
+    <h3>325 UC</h3>
+    <p>19,000Ks</p>
+  </div>
 
-zip_path.name
+  <div class="card">
+    <img src="pubg.jpg" alt="660 UC">
+    <h3>660 UC</h3>
+    <p>37,500Ks</p>
+  </div>
+
+  <div class="card">
+    <img src="pubg.jpg" alt="1800 UC">
+    <h3>1800 UC</h3>
+    <p>93,500Ks</p>
+  </div>
+
+  <div class="card">
+    <img src="pubg.jpg" alt="3850 UC">
+    <h3>3850 UC</h3>
+    <p>182,000Ks</p>
+  </div>
+
+  <div class="card">
+    <img src="pubg.jpg" alt="8100 UC">
+    <h3>8100 UC</h3>
+    <p>355,000Ks</p>
+  </div>
+
+</body>
+</html>
