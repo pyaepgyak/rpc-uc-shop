@@ -1,23 +1,81 @@
-from zipfile import ZipFile
 from pathlib import Path
 from shutil import copyfile
 
-# Define the paths
-html_file = Path("/mnt/data/index.html")
-image1 = Path("/mnt/data/76d6d34494d08d0b34670c8798fb4fdd.jpg")
-image2 = Path("/mnt/data/5060874429f424d0a89c5ccd2b116abf.jpg")
-zip_path = Path("/mnt/data/rpc_uc_shop_site.zip")
+# File paths
+html_template = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RPC-UC SHOP</title>
+    <style>
+        body {{
+            background-color: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }}
+        .container {{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }}
+        .card {{
+            background-color: #222;
+            border-radius: 8px;
+            padding: 15px;
+            width: 160px;
+        }}
+        img {{
+            width: 100%;
+            border-radius: 5px;
+        }}
+    </style>
+</head>
+<body>
+    <img src="pubg_logo.jpg" alt="PUBG Logo" width="120">
+    <h1>RPC-UC SHOP</h1>
+    <div>
+        <p>ဆက်သွယ်ရန်: Telegram: <a href="https://t.me/classic_owner_23" style="color:#00acee">@classic_owner_23</a></p>
+    </div>
+    <div class="container">
+        <div class="card">
+            <img src="pubg.jpg" alt="325 UC">
+            <p>325 UC - 19,000Ks</p>
+        </div>
+        <div class="card">
+            <img src="pubg.jpg" alt="660 UC">
+            <p>660 UC - 37,500Ks</p>
+        </div>
+        <div class="card">
+            <img src="pubg.jpg" alt="1800 UC">
+            <p>1800 UC - 93,500Ks</p>
+        </div>
+        <div class="card">
+            <img src="pubg.jpg" alt="3850 UC">
+            <p>3850 UC - 182,000Ks</p>
+        </div>
+        <div class="card">
+            <img src="pubg.jpg" alt="8100 UC">
+            <p>8100 UC - 355,000Ks</p>
+        </div>
+    </div>
+</body>
+</html>
+"""
 
-# Copy the images to match expected names in the HTML
-img1_copy = html_file.parent / "uc_image.jpg"
-img2_copy = html_file.parent / "pubg_logo.jpg"
-copyfile(image1, img1_copy)
-copyfile(image2, img2_copy)
+# Create project folder
+project_dir = Path("/mnt/data/rpc_uc_shop")
+project_dir.mkdir(parents=True, exist_ok=True)
 
-# Create a zip file containing the HTML and image files
-with ZipFile(zip_path, 'w') as zipf:
-    zipf.write(html_file, arcname="index.html")
-    zipf.write(img1_copy, arcname="uc_image.jpg")
-    zipf.write(img2_copy, arcname="pubg_logo.jpg")
+# Write HTML file
+html_file = project_dir / "index.html"
+html_file.write_text(html_template, encoding='utf-8')
 
-zip_path.name
+# Copy images and rename
+copyfile("/mnt/data/5060874429f424d0a89c5ccd2b116abf.jpg", project_dir / "pubg_logo.jpg")
+copyfile("/mnt/data/76d6d34494d08d0b34670c8798fb4fdd.jpg", project_dir / "pubg.jpg")
+
+"/mnt/data/rpc_uc_shop/index.html"
