@@ -66,16 +66,3 @@ html_template = """
 </html>
 """
 
-# Create project folder
-project_dir = Path("/mnt/data/rpc_uc_shop")
-project_dir.mkdir(parents=True, exist_ok=True)
-
-# Write HTML file
-html_file = project_dir / "index.html"
-html_file.write_text(html_template, encoding='utf-8')
-
-# Copy images and rename
-copyfile("/mnt/data/5060874429f424d0a89c5ccd2b116abf.jpg", project_dir / "pubg_logo.jpg")
-copyfile("/mnt/data/76d6d34494d08d0b34670c8798fb4fdd.jpg", project_dir / "pubg.jpg")
-
-"/mnt/data/rpc_uc_shop/index.html"
