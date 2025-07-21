@@ -1,87 +1,109 @@
+from pathlib import Path
 
+# Create the HTML content
+html_content = """
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>RPC-UC SHOP</title>
-  <style>
-    body {{
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #f4f4f4;
-      color: #333;
-    }}
-    h1 {{
-      color: #2c3e50;
-    }}
-    .uc-item {{
-      background-color: #fff;
-      border: 1px solid #ddd;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-    }}
-    .uc-item img {{
-      height: 70px;
-      width: 70px;
-      object-fit: contain;
-      margin-right: 15px;
-    }}
-    .contact {{
-      margin-top: 40px;
-      padding: 15px;
-      background-color: #e9ecef;
-      border-radius: 8px;
-    }}
-  </style>
+    <meta charset="UTF-8">
+    <title>RPC-UC SHOP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f0f0f;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+        }
+        header img {
+            max-height: 100px;
+        }
+        h1 {
+            margin: 10px 0 5px;
+        }
+        .container {
+            display: flex;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #1f1f1f;
+            padding: 20px;
+            margin-right: 20px;
+            border-radius: 10px;
+        }
+        .sidebar h2 {
+            margin-bottom: 10px;
+        }
+        .sidebar p {
+            margin: 5px 0;
+        }
+        .products {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .product {
+            background-color: #262626;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .product img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .price {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-
-  <h1>🔥 RPC-UC SHOP</h1>
-  <p>📦 ID TOPUP စျေးနုန်းစာရင်း</p>
-
-  <div class="uc-item">
-    <img src="https://via.placeholder.com/70?text=325UC" alt="325 UC">
-    <div>
-      <h3>325 UC</h3>
-      <p>💸 19,000 Ks</p>
+    <header>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/PUBG_Mobile_logo.svg/1200px-PUBG_Mobile_logo.svg.png" alt="PUBG Logo">
+        <h1>RPC-UC SHOP</h1>
+    </header>
+    <div class="container">
+        <div class="sidebar">
+            <h2>ဆက်သွယ်ရန်</h2>
+            <p><strong>Telegram:</strong> <a href="https://t.me/classic_owner_23" style="color: #00acee;">@classic_owner_23</a></p>
+        </div>
+        <div class="products">
+            <div class="product">
+                <img src="https://i.pinimg.com/originals/0b/25/df/0b25df455b3bb8b1c4c5775b2b86c304.jpg" alt="325 UC">
+                <div class="price">325 UC - 19,000Ks</div>
+            </div>
+            <div class="product">
+                <img src="https://i.pinimg.com/originals/0b/25/df/0b25df455b3bb8b1c4c5775b2b86c304.jpg" alt="660 UC">
+                <div class="price">660 UC - 37,500Ks</div>
+            </div>
+            <div class="product">
+                <img src="https://i.pinimg.com/originals/0b/25/df/0b25df455b3bb8b1c4c5775b2b86c304.jpg" alt="1800 UC">
+                <div class="price">1800 UC - 93,500Ks</div>
+            </div>
+            <div class="product">
+                <img src="https://i.pinimg.com/originals/0b/25/df/0b25df455b3bb8b1c4c5775b2b86c304.jpg" alt="3850 UC">
+                <div class="price">3850 UC - 182,000Ks</div>
+            </div>
+            <div class="product">
+                <img src="https://i.pinimg.com/originals/0b/25/df/0b25df455b3bb8b1c4c5775b2b86c304.jpg" alt="8100 UC">
+                <div class="price">8100 UC - 355,000Ks</div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="uc-item">
-    <img src="https://via.placeholder.com/70?text=660UC" alt="660 UC">
-    <div>
-      <h3>660 UC</h3>
-      <p>💸 37,500 Ks</p>
-    </div>
-  </div>
-  <div class="uc-item">
-    <img src="https://via.placeholder.com/70?text=1800UC" alt="1800 UC">
-    <div>
-      <h3>1800 UC</h3>
-      <p>💸 93,500 Ks</p>
-    </div>
-  </div>
-  <div class="uc-item">
-    <img src="https://via.placeholder.com/70?text=3850UC" alt="3850 UC">
-    <div>
-      <h3>3850 UC</h3>
-      <p>💸 182,000 Ks</p>
-    </div>
-  </div>
-  <div class="uc-item">
-    <img src="https://via.placeholder.com/70?text=8100UC" alt="8100 UC">
-    <div>
-      <h3>8100 UC</h3>
-      <p>💸 355,000 Ks</p>
-    </div>
-  </div>
-
-  <div class="contact">
-    <h3>📞 ဆက်သွယ်ရန်</h3>
-    <p>Telegram: <a href="https://t.me/classic_owner_23" target="_blank">@classic_owner_23</a></p>
-  </div>
-
 </body>
 </html>
+"""
+
+# Save the file
+file_path = Path("/mnt/data/index.html")
+file_path.write_text(html_content, encoding='utf-8')
+file_path.name
+
