@@ -1,84 +1,103 @@
 from pathlib import Path
 
-# HTML content with corrected image tags (assuming the images are named pubglogo.png and uc.png)
+# Define the HTML content with improved structure and layout
 html_content = """
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>RPC-UC SHOP</title>
     <style>
         body {
-            background-color: #111;
-            color: white;
             font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
             text-align: center;
         }
         .logo {
             width: 150px;
-            margin-top: 20px;
+            margin: 0 auto;
         }
-        .title {
-            font-size: 28px;
-            margin: 10px 0;
+        h1 {
+            color: #333;
         }
-        .container {
+        .contact {
+            margin: 10px 0 30px;
+            font-size: 18px;
+        }
+        .shop-container {
             display: flex;
-            flex-direction: row;
             justify-content: center;
-            align-items: flex-start;
-            margin-top: 30px;
-            gap: 20px;
+            flex-wrap: wrap;
+            gap: 30px;
         }
-        .contact, .prices {
-            background-color: #222;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .prices {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        .price-box {
-            background-color: #333;
-            padding: 15px;
+        .uc-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            text-align: left;
+            width: 200px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
         }
-        .price-box img {
-            width: 20px;
-            vertical-align: middle;
-            margin-right: 8px;
+        .uc-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
         }
-        .contact a {
-            color: #00BFFF;
-            text-decoration: none;
+        .uc-title {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .price {
+            margin-top: 5px;
+            color: #555;
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-    <img src="pubglogo.png" alt="PUBG Logo" class="logo">
-    <div class="title">RPC-UC SHOP</div>
-
-    <div class="container">
-        <div class="contact">
-            <h3>ဆက်သွယ်ရန်</h3>
-            <p>Telegram: <a href="https://t.me/classic_owner_23" target="_blank">@classic_owner_23</a></p>
+    <img class="logo" src="pubg_logo.jpg" alt="PUBG Logo">
+    <h1>RPC-UC SHOP</h1>
+    <div class="contact">ဆက်သွယ်ရန်: Telegram - <a href="https://t.me/classic_owner_23">@classic_owner_23</a></div>
+    <div class="shop-container">
+        <div class="uc-item">
+            <img src="pubg.jpg" alt="325 UC">
+            <div class="uc-title">325 UC</div>
+            <div class="price">19,000Ks</div>
         </div>
-        <div class="prices">
-            <div class="price-box"><img src="uc.png" alt="UC Icon">325 UC – 19,000Ks</div>
-            <div class="price-box"><img src="uc.png" alt="UC Icon">660 UC – 37,500Ks</div>
-            <div class="price-box"><img src="uc.png" alt="UC Icon">1800 UC – 93,500Ks</div>
-            <div class="price-box"><img src="uc.png" alt="UC Icon">3850 UC – 182,000Ks</div>
-            <div class="price-box"><img src="uc.png" alt="UC Icon">8100 UC – 355,000Ks</div>
+        <div class="uc-item">
+            <img src="pubg.jpg" alt="660 UC">
+            <div class="uc-title">660 UC</div>
+            <div class="price">37,500Ks</div>
         </div>
+        <div class="uc-item">
+            <img src="pubg.jpg" alt="1800 UC">
+            <div class="uc-title">1800 UC</div>
+            <div class="price">93,500Ks</div>
+        </div>
+        <div class="uc-item">
+            <img src="pubg.jpg" alt="3850 UC">
+            <div class="uc-title">3850 UC</div>
+            <div class="price">182,000Ks</div>
+        </div>
+        <div class="uc-item">
+            <img src="pubg.jpg" alt="8100 UC">
+            <div class="uc-title">8100 UC</div>
+            <div class="price">355,000Ks</div>
+        </div>
+    </div>
+    <div class="footer">
+        🛒 注文・ご質問はTelegramからどうぞ。
     </div>
 </body>
 </html>
 """
 
-# Save the file
+# Save the HTML file
 file_path = Path("/mnt/data/index.html")
 file_path.write_text(html_content, encoding='utf-8')
 file_path.name
