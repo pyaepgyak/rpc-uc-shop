@@ -1,64 +1,84 @@
+from pathlib import Path
 
+# HTML content with corrected image tags (assuming the images are named pubglogo.png and uc.png)
+html_content = """
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
     <meta charset="UTF-8">
     <title>RPC-UC SHOP</title>
     <style>
-        body {{
+        body {
             background-color: #111;
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-        }}
-        .container {{
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
+        }
+        .logo {
+            width: 150px;
             margin-top: 20px;
-        }}
-        .card {{
+        }
+        .title {
+            font-size: 28px;
+            margin: 10px 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 30px;
+            gap: 20px;
+        }
+        .contact, .prices {
             background-color: #222;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .prices {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .price-box {
+            background-color: #333;
             padding: 15px;
-            width: 160px;
-        }}
-        img {{
-            width: 100%;
-            border-radius: 5px;
-        }}
+            border-radius: 8px;
+            text-align: left;
+        }
+        .price-box img {
+            width: 20px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        .contact a {
+            color: #00BFFF;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-    <img src="pubg_logo.jpg" alt="PUBG Logo" width="120">
-    <h1>RPC-UC SHOP</h1>
-    <div>
-        <p>ဆက်သွယ်ရန်: Telegram: <a href="https://t.me/classic_owner_23" style="color:#00acee">@classic_owner_23</a></p>
-    </div>
+    <img src="pubglogo.png" alt="PUBG Logo" class="logo">
+    <div class="title">RPC-UC SHOP</div>
+
     <div class="container">
-        <div class="card">
-            <img src="pubg.jpg" alt="325 UC">
-            <p>325 UC - 19,000Ks</p>
+        <div class="contact">
+            <h3>ဆက်သွယ်ရန်</h3>
+            <p>Telegram: <a href="https://t.me/classic_owner_23" target="_blank">@classic_owner_23</a></p>
         </div>
-        <div class="card">
-            <img src="pubg.jpg" alt="660 UC">
-            <p>660 UC - 37,500Ks</p>
-        </div>
-        <div class="card">
-            <img src="pubg.jpg" alt="1800 UC">
-            <p>1800 UC - 93,500Ks</p>
-        </div>
-        <div class="card">
-            <img src="pubg.jpg" alt="3850 UC">
-            <p>3850 UC - 182,000Ks</p>
-        </div>
-        <div class="card">
-            <img src="pubg.jpg" alt="8100 UC">
-            <p>8100 UC - 355,000Ks</p>
+        <div class="prices">
+            <div class="price-box"><img src="uc.png" alt="UC Icon">325 UC – 19,000Ks</div>
+            <div class="price-box"><img src="uc.png" alt="UC Icon">660 UC – 37,500Ks</div>
+            <div class="price-box"><img src="uc.png" alt="UC Icon">1800 UC – 93,500Ks</div>
+            <div class="price-box"><img src="uc.png" alt="UC Icon">3850 UC – 182,000Ks</div>
+            <div class="price-box"><img src="uc.png" alt="UC Icon">8100 UC – 355,000Ks</div>
         </div>
     </div>
 </body>
 </html>
 """
 
+# Save the file
+file_path = Path("/mnt/data/index.html")
+file_path.write_text(html_content, encoding='utf-8')
+file_path.name
