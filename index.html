@@ -82,7 +82,16 @@
 
     <label>အကြိမ်ရေ:</label><br>
     <select id="quantity" onchange="updateTotal()">
-      ${[...Array(10)].map((_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
     </select><br>
 
     <img src="kpay.jpg" alt="KPay QR" width="150" /><br>
@@ -113,7 +122,10 @@
       const pubgId = document.getElementById('pubgId').value;
       const qty = parseInt(document.getElementById('quantity').value);
       const total = qty * selectedPrice;
-      const url = `https://t.me/classic_owner_23?start=order_uc_${selectedUC}_x${qty}_id${pubgId}_price${total}`;
+
+      // Telegram redirect with order details
+      const message = encodeURIComponent(`Order:\nUC: ${selectedUC} x ${qty}\nPUBG ID: ${pubgId}\nTotal: ${total.toLocaleString()} Ks`);
+      const url = `https://t.me/classic_owner_23?start=${message}`;
       window.location.href = url;
     }
   </script>
