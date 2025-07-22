@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RPC UC SHOP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: sans-serif;
       text-align: center;
-      background-color: #fafafa;
+      background-color: #f9f9f9;
     }
     .uc-option {
       display: inline-block;
@@ -23,9 +23,6 @@
       border-color: #4A90E2;
       background-color: #e6f0ff;
     }
-    #form-section {
-      margin-top: 30px;
-    }
     input, select {
       padding: 10px;
       width: 250px;
@@ -37,14 +34,14 @@
       padding: 12px 20px;
       border: none;
       border-radius: 5px;
-      cursor: pointer;
       font-size: 16px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <h1>RPC-UC SHOP</h1>
-  <p>ဆက်သွယ်ရန် - Telegram: <a href="https://t.me/classic_owner_23" target="_blank">@classic_owner_23</a></p>
+  <p>ဆက်သွယ်ရန် - Telegram: <a href="https://t.me/classic_owner_23">@classic_owner_23</a></p>
 
   <div id="uc-options">
     <div class="uc-option" onclick="selectUC(325, 19000)">325 UC<br>19,000Ks</div>
@@ -54,19 +51,28 @@
     <div class="uc-option" onclick="selectUC(8100, 355000)">8100 UC<br>355,000Ks</div>
   </div>
 
-  <div id="form-section">
-    <h2 id="selected-uc">UC</h2>
-    <input type="text" id="pubgId" placeholder="PUBG ID ကို ထည့်ပါ" /><br/>
-    
-    <label>အကြိမ်ရေ:</label>
-    <select id="quantity" onchange="calculateTotal()">
-      ${[...Array(10)].map((_, i) => `<option value="${i+1}">${i+1}</option>`).join("")}
-    </select><br/>
+  <h2 id="selected-uc">UC</h2>
 
-    <img src="kpay.jpg" alt="KPay QR" style="width:100px"><br/>
-    <p id="totalPrice">စုစုပေါင်း: 0 Ks</p>
-    <button onclick="submitOrder()">ဝယ်ယူမည်</button>
-  </div>
+  <input type="text" id="pubgId" placeholder="PUBG ID ထည့်ပါ" /><br/>
+
+  <label>အကြိမ်ရေ:</label>
+  <select id="quantity" onchange="calculateTotal()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+  </select><br/>
+
+  <img src="kpay.jpg" alt="KPay QR" width="100"><br/>
+  <p id="totalPrice">စုစုပေါင်း: 0 Ks</p>
+
+  <button onclick="submitOrder()">ဝယ်ယူမည်</button>
 
   <script>
     let selectedUC = 0;
@@ -76,15 +82,16 @@
       selectedUC = uc;
       selectedPrice = price;
       document.getElementById("selected-uc").innerText = uc + " UC";
-
-      document.querySelectorAll(".uc-option").forEach(el => el.classList.remove("selected"));
-      event.currentTarget.classList.add("selected");
-
       calculateTotal();
+
+      // highlight selected
+      document.querySelectorAll(".uc-option").forEach(opt => opt.classList.remove("selected"));
+      event.currentTarget.classList.add("selected");
     }
 
     function calculateTotal() {
       const qty = parseInt(document.getElementById("quantity").value);
+      if (!selectedPrice || !qty) return;
       const total = selectedPrice * qty;
       document.getElementById("totalPrice").innerText = `စုစုပေါင်း: ${total.toLocaleString()} Ks`;
     }
@@ -93,28 +100,26 @@
       const pubgId = document.getElementById("pubgId").value;
       const qty = parseInt(document.getElementById("quantity").value);
       const total = selectedPrice * qty;
+      const ucAmount = selectedUC * qty;
 
       if (!pubgId || !selectedUC || !qty) {
-        alert("သတင်းအချက်အလက် အပြည့်အဝဖြည့်ပါ။");
+        alert("အချက်အလက်များအပြည့်အဝဖြည့်ပါ။");
         return;
       }
 
-      const message = `🛒 UC Order\nPUBG ID: ${pubgId}\nUC: ${selectedUC} × ${qty} = ${selectedUC * qty} UC\nငွေပမာဏ: ${total.toLocaleString()} Ks`;
+      const message = `🛒 UC Order\nPUBG ID: ${pubgId}\nUC: ${selectedUC} x ${qty} = ${ucAmount} UC\nစုစုပေါင်း: ${total.toLocaleString()} Ks`;
 
-      // Telegram Bot API call
       fetch(`https://api.telegram.org/bot7280230333:AAHY0w5wJoZrsAOnzlS_-yoFYY_1Qym7JVk/sendMessage`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           chat_id: "@classic_owner_23",
           text: message
         })
       }).then(() => {
-        alert("အော်ဒါတင်ပြီးပါပြီ! Telegram တွင် စာပေးပို့ပြီးပါပြီ။");
+        alert("အော်ဒါပေးပြီးပါပြီ! Telegram ထဲကို auto ပို့ထားပါတယ်။");
       }).catch(() => {
-        alert("Telegram ပေးပို့မှု မအောင်မြင်ပါ။");
+        alert("Telegram ပို့တာမအောင်မြင်ပါ။");
       });
     }
   </script>
