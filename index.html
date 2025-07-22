@@ -8,12 +8,12 @@
     body {
       font-family: sans-serif;
       background: #f9f9f9;
+      text-align: center;
       margin: 0;
       padding: 0;
-      text-align: center;
     }
     .logo {
-      margin: 20px auto 0;
+      margin-top: 20px;
     }
     .shop-title {
       font-size: 28px;
@@ -27,20 +27,22 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 12px;
+      margin-bottom: 20px;
     }
     .card {
       background: #fff;
       padding: 15px;
       width: 120px;
       box-shadow: 0 0 8px rgba(0,0,0,0.1);
-      cursor: pointer;
       border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-    .card:hover {
-      background: #eef;
+    .card.active {
+      background: #e0e7ff;
+      border: 2px solid #3b82f6;
     }
     .form-container {
-      margin-top: 20px;
       display: none;
     }
     .form-container.active {
@@ -48,8 +50,10 @@
     }
     input, select {
       padding: 10px;
-      width: 220px;
+      width: 240px;
       margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
     .btn {
       background: #007bff;
@@ -68,46 +72,45 @@
   <p class="telegram">ဆက်သွယ်ရန်: Telegram - <a href="https://t.me/classic_owner_23" target="_blank">@classic_owner_23</a></p>
 
   <div class="cards">
-    <div class="card" onclick="selectUC(325, 19000)">325 UC<br>19,000Ks</div>
-    <div class="card" onclick="selectUC(660, 37500)">660 UC<br>37,500Ks</div>
-    <div class="card" onclick="selectUC(1800, 93500)">1800 UC<br>93,500Ks</div>
-    <div class="card" onclick="selectUC(3850, 182000)">3850 UC<br>182,000Ks</div>
-    <div class="card" onclick="selectUC(8100, 355000)">8100 UC<br>355,000Ks</div>
+    <div class="card" onclick="selectUC(this, 325, 19000)">325 UC<br>19,000Ks</div>
+    <div class="card" onclick="selectUC(this, 660, 37500)">660 UC<br>37,500Ks</div>
+    <div class="card" onclick="selectUC(this, 1800, 93500)">1800 UC<br>93,500Ks</div>
+    <div class="card" onclick="selectUC(this, 3850, 182000)">3850 UC<br>182,000Ks</div>
+    <div class="card" onclick="selectUC(this, 8100, 355000)">8100 UC<br>355,000Ks</div>
   </div>
 
   <div class="form-container" id="orderForm">
-    <h2 id="selectedUC">325 UC</h2>
+    <h2 id="selectedUC">UC</h2>
     <label>သင် PUBG ID ကို ထည့်ပါ</label><br>
     <input type="text" id="pubgId" placeholder="Enter your PUBG ID" /><br>
 
     <label>အကြိမ်ရေ:</label><br>
     <select id="quantity" onchange="updateTotal()">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
+      <script>
+        for(let i=1; i<=10; i++) {
+          document.write(`<option value="${i}">${i}</option>`);
+        }
+      </script>
     </select><br>
 
     <img src="kpay.jpg" alt="KPay QR" width="150" /><br>
-    <p id="total">စုစုပေါင်း: 19,000 Ks</p>
+    <p id="total">စုစုပေါင်း: 0 Ks</p>
 
     <button class="btn" onclick="submitOrder()">ဝယ်ယူမည်</button>
   </div>
 
   <script>
-    let selectedPrice = 19000;
-    let selectedUC = 325;
+    let selectedUC = 0;
+    let selectedPrice = 0;
+    const cards = document.querySelectorAll('.card');
 
-    function selectUC(uc, price) {
+    function selectUC(el, uc, price) {
+      cards.forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+
       selectedUC = uc;
       selectedPrice = price;
-      document.getElementById('selectedUC').textContent = uc + ' UC';
+      document.getElementById('selectedUC').textContent = `${uc} UC`;
       document.getElementById('orderForm').classList.add('active');
       updateTotal();
     }
@@ -119,12 +122,16 @@
     }
 
     function submitOrder() {
-      const pubgId = document.getElementById('pubgId').value;
+      const pubgId = document.getElementById('pubgId').value.trim();
       const qty = parseInt(document.getElementById('quantity').value);
       const total = qty * selectedPrice;
 
-      // Telegram redirect with order details
-      const message = encodeURIComponent(`Order:\nUC: ${selectedUC} x ${qty}\nPUBG ID: ${pubgId}\nTotal: ${total.toLocaleString()} Ks`);
+      if (!pubgId || !selectedUC || !selectedPrice) {
+        alert('ကျေးဇူးပြု၍ ID နှင့် UC တစ်ခုရွေးပါ');
+        return;
+      }
+
+      const message = encodeURIComponent(`🛒 UC Order\nPUBG ID: ${pubgId}\nUC: ${selectedUC} x ${qty}\nTotal: ${total.toLocaleString()} Ks`);
       const url = `https://t.me/classic_owner_23?start=${message}`;
       window.location.href = url;
     }
