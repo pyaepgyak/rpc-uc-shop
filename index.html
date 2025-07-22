@@ -132,8 +132,8 @@
       }
 
       const message = encodeURIComponent(`🛒 UC Order\nPUBG ID: ${pubgId}\nOrder: ${selectedUC} UC × ${qty}\nTotal: ${total.toLocaleString()} Ks`);
-      const url = `https://t.me/share/url?url=t.me/classic_owner_23&text=${message}`;
-      window.location.href = url;
+      const url = `https://t.me/classic_owner_23?start=${message}`;
+      window.open(url, "_blank");
     }
   </script>
 </body>
