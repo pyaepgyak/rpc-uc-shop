@@ -3,159 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <title>RPC-UC SHOP</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       font-family: sans-serif;
-      background-color: #f9f9f9;
       text-align: center;
-      margin: 0;
-      padding: 0;
+      background-color: #f8f8f8;
+      padding: 20px;
     }
-
-    .logo {
-      width: 100px;
-      margin-top: 10px;
-    }
-
     h1 {
-      margin-top: 5px;
-      color: #222;
+      margin-bottom: 5px;
     }
-
-    .telegram {
-      margin: 5px 0 20px;
-      font-size: 14px;
-    }
-
-    .cards {
+    .uc-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
-      padding: 10px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 8px;
-      padding: 10px;
-      width: 140px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      cursor: pointer;
-    }
-
-    .card img {
-      width: 100%;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 5px;
-    }
-
-    .card h3 {
-      margin: 10px 0 5px;
-    }
-
-    .card p {
-      margin: 0;
-      color: #555;
-    }
-
-    #form-section {
-      display: none;
       margin-top: 20px;
-      padding: 20px;
     }
-
-    #form-section input, #form-section button {
-      padding: 10px;
-      margin-top: 10px;
-      width: 80%;
-      font-size: 16px;
-      border-radius: 5px;
+    .uc-card {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      width: 140px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .form-section {
+      margin-top: 30px;
+      display: none;
+    }
+    input, select {
+      padding: 8px;
+      width: 200px;
+      margin: 10px 0;
       border: 1px solid #ccc;
+      border-radius: 5px;
     }
-
-    #form-section button {
-      background-color: #3b82f6;
+    button {
+      padding: 10px 20px;
+      background-color: royalblue;
       color: white;
       border: none;
+      border-radius: 5px;
+      font-size: 16px;
       cursor: pointer;
     }
-
-    #form-section button:hover {
-      background-color: #2563eb;
-    }
-
-    .kpay-img {
-      margin-top: 15px;
-      width: 150px;
+    img.logo {
+      width: 80px;
     }
   </style>
 </head>
 <body>
-
-  <img class="logo" src="pubg_logo.jpg" alt="PUBG Logo">
+  <img src="pubg_logo.jpg" alt="PUBG Logo" class="logo">
   <h1>RPC-UC SHOP</h1>
-  <p class="telegram">ဆက်သွယ်ရန်: Telegram - <a href="https://t.me/classic_owner_23" target="_blank">@classic_owner_23</a></p>
+  <p>ဆက်သွယ်ရန်: Telegram - <a href="https://t.me/classic_owner_23" target="_blank">@classic_owner_23</a></p>
 
-  <div class="cards">
-    <div class="card" onclick="openForm('325 UC - 19,000Ks')">
-      <img src="uc_image.jpg" alt="325 UC">
-      <h3>325 UC</h3>
-      <p>19,000Ks</p>
-    </div>
-    <div class="card" onclick="openForm('660 UC - 37,500Ks')">
-      <img src="uc_image.jpg" alt="660 UC">
-      <h3>660 UC</h3>
-      <p>37,500Ks</p>
-    </div>
-    <div class="card" onclick="openForm('1800 UC - 93,500Ks')">
-      <img src="uc_image.jpg" alt="1800 UC">
-      <h3>1800 UC</h3>
-      <p>93,500Ks</p>
-    </div>
-    <div class="card" onclick="openForm('3850 UC - 182,000Ks')">
-      <img src="uc_image.jpg" alt="3850 UC">
-      <h3>3850 UC</h3>
-      <p>182,000Ks</p>
-    </div>
-    <div class="card" onclick="openForm('8100 UC - 355,000Ks')">
-      <img src="uc_image.jpg" alt="8100 UC">
-      <h3>8100 UC</h3>
-      <p>355,000Ks</p>
-    </div>
+  <div class="uc-grid">
+    <div class="uc-card" onclick="selectUC(325, 19000)">325 UC<br>19,000Ks</div>
+    <div class="uc-card" onclick="selectUC(660, 37500)">660 UC<br>37,500Ks</div>
+    <div class="uc-card" onclick="selectUC(1800, 93500)">1800 UC<br>93,500Ks</div>
+    <div class="uc-card" onclick="selectUC(3850, 182000)">3850 UC<br>182,000Ks</div>
+    <div class="uc-card" onclick="selectUC(8100, 355000)">8100 UC<br>355,000Ks</div>
   </div>
 
-  <div id="form-section">
-    <h2>သင့် PUBG ID ကို ထည့်ပါ</h2>
-    <input type="text" id="pubg-id" placeholder="Enter your PUBG ID">
-    <div>
-      <img class="kpay-img" src="kpay.jpg" alt="KPay QR">
-    </div>
-    <button onclick="submitOrder()">ဝယ်ယူမည်</button>
+  <div class="form-section" id="formSection">
+    <h2 id="ucTitle">UC Detail</h2>
+    <label>သင့် PUBG ID ကို ထည့်ပါ</label><br>
+    <input type="text" id="pubgId" placeholder="Enter your PUBG ID" required><br>
+
+    <label>အရေအတွက်:</label><br>
+    <select id="quantity" onchange="updatePrice()">
+      <script>
+        for (let i = 1; i <= 10; i++) {
+          document.write(`<option value="${i}">${i}</option>`);
+        }
+      </script>
+    </select><br>
+
+    <img src="kpay.jpg" alt="KPay QR" width="150"><br>
+
+    <p>စုစုပေါင်း: <span id="total">0</span> Ks</p>
+
+    <button onclick="buyNow()">ဝယ်ယူမည်</button>
   </div>
 
   <script>
-    let selectedUC = '';
+    let selectedUC = 0;
+    let unitPrice = 0;
 
-    function openForm(ucText) {
-      selectedUC = ucText;
-      document.getElementById('form-section').style.display = 'block';
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    function selectUC(uc, price) {
+      selectedUC = uc;
+      unitPrice = price;
+      document.getElementById('formSection').style.display = 'block';
+      document.getElementById('ucTitle').innerText = `${uc} UC`;
+      updatePrice();
     }
 
-    function submitOrder() {
-      const pubgId = document.getElementById("pubg-id").value.trim();
-      if (!pubgId) {
-        alert("ကျေးဇူးပြုပြီး PUBG ID ကိုထည့်ပါ။");
+    function updatePrice() {
+      const qty = document.getElementById('quantity').value;
+      const total = unitPrice * qty;
+      document.getElementById('total').innerText = total.toLocaleString();
+    }
+
+    function buyNow() {
+      const id = document.getElementById('pubgId').value;
+      const qty = document.getElementById('quantity').value;
+      if (!id) {
+        alert("PUBG ID ထည့်ပါ");
         return;
       }
-      const msg = `PUBG ID: ${pubgId} | Package: ${selectedUC}`;
-      const telegramLink = `https://t.me/classic_owner_23?text=${encodeURIComponent(msg)}`;
-      window.location.href = telegramLink;
+      const message = encodeURIComponent(`ဝယ်ယူမည်:\nUC: ${selectedUC}\nQty: ${qty}\nPUBG ID: ${id}`);
+      window.location.href = `https://t.me/classic_owner_23?text=${message}`;
     }
   </script>
-
 </body>
 </html>
