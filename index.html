@@ -36,7 +36,7 @@
       box-shadow: 0 0 8px rgba(0,0,0,0.1);
       border-radius: 6px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s, border 0.3s;
     }
     .card.active {
       background: #e0e7ff;
@@ -131,8 +131,8 @@
         return;
       }
 
-      const message = encodeURIComponent(`🛒 UC Order\nPUBG ID: ${pubgId}\nUC: ${selectedUC} x ${qty}\nTotal: ${total.toLocaleString()} Ks`);
-      const url = `https://t.me/classic_owner_23?start=${message}`;
+      const message = encodeURIComponent(`🛒 UC Order\nPUBG ID: ${pubgId}\nOrder: ${selectedUC} UC × ${qty}\nTotal: ${total.toLocaleString()} Ks`);
+      const url = `https://t.me/share/url?url=t.me/classic_owner_23&text=${message}`;
       window.location.href = url;
     }
   </script>
