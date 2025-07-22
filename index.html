@@ -1,119 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RPC-UC SHOP</title>
   <style>
     body {
       font-family: sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
       text-align: center;
-      background-color: #f8f8f8;
-      padding: 20px;
     }
-    h1 {
-      margin-bottom: 5px;
+    .logo {
+      margin: 20px auto 0;
     }
-    .uc-grid {
+    .shop-title {
+      font-size: 28px;
+      margin: 10px 0;
+    }
+    .telegram {
+      margin-bottom: 20px;
+    }
+    .cards {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 15px;
-      margin-top: 20px;
+      gap: 12px;
     }
-    .uc-card {
-      background: white;
+    .card {
+      background: #fff;
       padding: 15px;
-      border-radius: 10px;
-      width: 140px;
+      width: 120px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
       cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 6px;
     }
-    .form-section {
-      margin-top: 30px;
+    .card:hover {
+      background: #eef;
+    }
+    .form-container {
+      margin-top: 20px;
       display: none;
     }
+    .form-container.active {
+      display: block;
+    }
     input, select {
-      padding: 8px;
-      width: 200px;
+      padding: 10px;
+      width: 220px;
       margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
     }
-    button {
-      padding: 10px 20px;
-      background-color: royalblue;
-      color: white;
+    .btn {
+      background: #007bff;
+      color: #fff;
       border: none;
-      border-radius: 5px;
-      font-size: 16px;
+      padding: 12px 24px;
       cursor: pointer;
-    }
-    img.logo {
-      width: 80px;
+      font-size: 16px;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
-  <img src="pubg_logo.jpg" alt="PUBG Logo" class="logo">
-  <h1>RPC-UC SHOP</h1>
-  <p>ဆက်သွယ်ရန်: Telegram - <a href="https://t.me/classic_owner_23" target="_blank">@classic_owner_23</a></p>
+  <img src="pubg_logo.jpg" alt="PUBG Logo" class="logo" width="100" />
+  <h1 class="shop-title">RPC-UC SHOP</h1>
+  <p class="telegram">ဆက်သွယ်ရန်: Telegram - <a href="https://t.me/classic_owner_23" target="_blank">@classic_owner_23</a></p>
 
-  <div class="uc-grid">
-    <div class="uc-card" onclick="selectUC(325, 19000)">325 UC<br>19,000Ks</div>
-    <div class="uc-card" onclick="selectUC(660, 37500)">660 UC<br>37,500Ks</div>
-    <div class="uc-card" onclick="selectUC(1800, 93500)">1800 UC<br>93,500Ks</div>
-    <div class="uc-card" onclick="selectUC(3850, 182000)">3850 UC<br>182,000Ks</div>
-    <div class="uc-card" onclick="selectUC(8100, 355000)">8100 UC<br>355,000Ks</div>
+  <div class="cards">
+    <div class="card" onclick="selectUC(325, 19000)">325 UC<br>19,000Ks</div>
+    <div class="card" onclick="selectUC(660, 37500)">660 UC<br>37,500Ks</div>
+    <div class="card" onclick="selectUC(1800, 93500)">1800 UC<br>93,500Ks</div>
+    <div class="card" onclick="selectUC(3850, 182000)">3850 UC<br>182,000Ks</div>
+    <div class="card" onclick="selectUC(8100, 355000)">8100 UC<br>355,000Ks</div>
   </div>
 
-  <div class="form-section" id="formSection">
-    <h2 id="ucTitle">UC Detail</h2>
-    <label>သင့် PUBG ID ကို ထည့်ပါ</label><br>
-    <input type="text" id="pubgId" placeholder="Enter your PUBG ID" required><br>
+  <div class="form-container" id="orderForm">
+    <h2 id="selectedUC">325 UC</h2>
+    <label>သင် PUBG ID ကို ထည့်ပါ</label><br>
+    <input type="text" id="pubgId" placeholder="Enter your PUBG ID" /><br>
 
-    <label>အရေအတွက်:</label><br>
-    <select id="quantity" onchange="updatePrice()">
-      <script>
-        for (let i = 1; i <= 10; i++) {
-          document.write(`<option value="${i}">${i}</option>`);
-        }
-      </script>
+    <label>အကြိမ်ရေ:</label><br>
+    <select id="quantity" onchange="updateTotal()">
+      ${[...Array(10)].map((_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
     </select><br>
 
-    <img src="kpay.jpg" alt="KPay QR" width="150"><br>
+    <img src="kpay.jpg" alt="KPay QR" width="150" /><br>
+    <p id="total">စုစုပေါင်း: 19,000 Ks</p>
 
-    <p>စုစုပေါင်း: <span id="total">0</span> Ks</p>
-
-    <button onclick="buyNow()">ဝယ်ယူမည်</button>
+    <button class="btn" onclick="submitOrder()">ဝယ်ယူမည်</button>
   </div>
 
   <script>
-    let selectedUC = 0;
-    let unitPrice = 0;
+    let selectedPrice = 19000;
+    let selectedUC = 325;
 
     function selectUC(uc, price) {
       selectedUC = uc;
-      unitPrice = price;
-      document.getElementById('formSection').style.display = 'block';
-      document.getElementById('ucTitle').innerText = `${uc} UC`;
-      updatePrice();
+      selectedPrice = price;
+      document.getElementById('selectedUC').textContent = uc + ' UC';
+      document.getElementById('orderForm').classList.add('active');
+      updateTotal();
     }
 
-    function updatePrice() {
-      const qty = document.getElementById('quantity').value;
-      const total = unitPrice * qty;
-      document.getElementById('total').innerText = total.toLocaleString();
+    function updateTotal() {
+      const qty = parseInt(document.getElementById('quantity').value);
+      const total = qty * selectedPrice;
+      document.getElementById('total').textContent = 'စုစုပေါင်း: ' + total.toLocaleString() + ' Ks';
     }
 
-    function buyNow() {
-      const id = document.getElementById('pubgId').value;
-      const qty = document.getElementById('quantity').value;
-      if (!id) {
-        alert("PUBG ID ထည့်ပါ");
-        return;
-      }
-      const message = encodeURIComponent(`ဝယ်ယူမည်:\nUC: ${selectedUC}\nQty: ${qty}\nPUBG ID: ${id}`);
-      window.location.href = `https://t.me/classic_owner_23?text=${message}`;
+    function submitOrder() {
+      const pubgId = document.getElementById('pubgId').value;
+      const qty = parseInt(document.getElementById('quantity').value);
+      const total = qty * selectedPrice;
+      const url = `https://t.me/classic_owner_23?start=order_uc_${selectedUC}_x${qty}_id${pubgId}_price${total}`;
+      window.location.href = url;
     }
   </script>
 </body>
